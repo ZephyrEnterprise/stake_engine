@@ -1,0 +1,45 @@
+.page_background {background-color: #0C0D17}
+.nav_background {background-color: #191620; border-color: #000000}
+.pool_background {background-color: #161620; border: 1px solid #010207}
+.nft_background {background-color: #161620;}
+.sign_board {background-color: #161620; border: 1px solid #010207 }
+.pale_blue_back {background-color: #233851}
+
+.white_letter {color: #d9d9d9}
+.grey_letter {color: #525252}
+.grey_letter:hover {color: #7e7e7e
+}
+
+.nft_btn {border: 1px solid #a4a4a4}
+.nft_btn:hover {border: 1px solid #d9d9d9}
+.nft_btn:focus {border: 1px solid #d9d9d9}
+.nft_btn:disabled {border: 1px solid #68bce0}
+
+.nft_stk{border: 1px solid #91669a}
+.nft_stk:hover {border: 1px solid #9d72d2}
+.nft_stk:focus {border: 1px solid #7166cc}
+.nft_stk:disabled {border: 1px solid #686ee0}
+
+.nft_hlw {border: 1px solid #a4a4a4}
+
+.name {color: #d9d9d9;}
+.symbol {color: #68bce0}
+.warning_letter {color: #F3683D}
+
+.name_hover {color: #d9d9d9}
+.name_hover:hover {color: #f9f9f9}
+.name_hover:focus {color: #d0d0d0}
+.name_hover:active {color: #525252}
+
+.symbol_hover {color: #68bce0}
+.symbol_hover:hover {color: #98ecff}
+.symbol_hover:disabled {color: #a3a7d1;}
+.symbol_hover:focus {color: #a3a7d1;}
+
+.success_button {background-color: #2ED69B; color: #d9d9d9}
+.success_button:hover {background-color: #4Ee6bc}
+.success_button:disabled {background-color: #61b19f;}
+.success_button:focus {background-color: #71e1cf;}
+
+.hl_inner {background-color: #d9d9d9}
+.roll_color {color: #98ecdf}

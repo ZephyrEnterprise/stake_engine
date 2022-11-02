@@ -1,0 +1,58 @@
+.hr {
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.row{
+    display: grid;
+    grid-auto-flow: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+}
+.container1{
+    max-width: 750px;
+    width: 75%;
+    min-height: 0px;
+    margin: 10px calc(calc(100vw - min(75vw, 750px)) / 2) 10px calc(calc(100vw - min(75vw, 750px)) / 2);
+    display: inline-grid;
+    justify-self: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.btn_row{
+    max-width: 750px;
+    width: 75%;
+    display: inline-grid;
+    justify-self: center;
+    padding-right: 0;
+    padding-left: 0;
+}
+.container_grid{
+    margin-right: max(20px, calc(calc(100vw - var(--v)) / 2));
+    margin-left: max(20px, calc(calc(100vw - var(--v)) / 2));
+    min-width: 950px;
+    width: var(--v);
+    --w: calc(100vw - min(100px,max(20px, calc(calc(100vw - 950px) / 2))));
+    --v: max(calc(1510 * min(1px, max(0px, calc(calc(var(--w) - 1510px) * 1000)))), max(calc(1325 * min(1px, max(0px, calc(calc(var(--w) - 1325px) * 1000)))), max(calc(1135* min(1px, max(0px, calc(calc(var(--w) - 1135px) * 1000)))), 950px)));
+}
+.container_grid_cut{
+    --w: calc(100vw - min(100px,max(20px, calc(calc(100vw - 950px) / 2))));
+    --v: max(calc(1510 * min(1px, max(0px, calc(calc(var(--w) - 1510px) * 1000)))), max(calc(1325 * min(1px, max(0px, calc(calc(var(--w) - 1325px) * 1000)))), max(calc(1135* min(1px, max(0px, calc(calc(var(--w) - 1135px) * 1000)))), 950px)));
+    --u: var(--v) - 360px;
+    --z: max(calc(1135 * min(1px, max(0px, calc(calc(var(--u) - 1135px) * 1000)))), max(calc(950 * min(1px, max(0px, calc(calc(var(--u) - 950px) * 1000)))), max(calc(760* min(1px, max(0px, calc(calc(var(--u) - 760px) * 1000)))), 575px)));
+    max-width: var(--z);
+    width: fit-content;
+}
+.board{
+    width: 350px;
+    margin-left: auto;
+    margin-right: 0;
+    right: 0;
+    left: 0;
+}
+.disabled_btn{
+    pointer-events: none;
+}
