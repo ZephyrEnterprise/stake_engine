@@ -9,8 +9,10 @@
 ### 11.01.2022
 - Withdraw from Loader bug solved
 - New npm installation command
-### 11.01.2022
+### 11.02.2022
 - Description for Custom Stake UI added to docs
+### 11.03.2022
+- Discount Recognition added
 
 ## **V.1.2.02** 
 ### 10.24.2022
