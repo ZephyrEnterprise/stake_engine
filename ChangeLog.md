@@ -1,4 +1,3 @@
-# Change Log
 
 ## **V.1.2.03** 
 ### 10.30.2022
@@ -11,6 +10,7 @@
 - New npm installation command
 ### 11.02.2022
 - Description for Custom Stake UI added to docs
+- Packed Engine UI project
 ### 11.03.2022
 - Discount Recognition added
 
