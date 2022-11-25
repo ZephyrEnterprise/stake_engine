@@ -131,7 +131,7 @@ var Flush;
             return;
         fs_1.default.rmdirSync(path_1.default.resolve(Path.dataDir, dirName), { recursive: true, force: true });
     }
-    const ignoredFiles = new Set(["config.json", "loader-keypair.json", "states.json"]);
+    const ignoredFiles = new Set(["config.json", "loader-keypair.json", "states.json", "tokens.json"]);
     function dataDirectory() {
         Cache.directory("logs");
         Cache.directory("scripts");
@@ -335,6 +335,9 @@ function checkDataDir() {
     }
     if (!fs_1.default.existsSync(path_1.default.resolve(Path.dataDir, "scripts", "plot.txt"))) {
         fs_1.default.writeFileSync(path_1.default.resolve(Path.dataDir, "scripts", "plot.txt"), "");
+    }
+    if (!fs_1.default.existsSync(path_1.default.resolve(Path.dataDir, "tokens.json"))) {
+        fs_1.default.writeFileSync(path_1.default.resolve(Path.dataDir, "tokens.json"), JSON.stringify({ list: [] }));
     }
     if (!fs_1.default.existsSync(path_1.default.resolve(Path.dataDir, "config.json"))) {
         const config = {

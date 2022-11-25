@@ -67,7 +67,7 @@ function execLine(line, namespace) {
                 data: idx,
             });
             tx.add(incrIx);
-            const txid = yield wallet.sendAndConfirmTransaction(tx, env_1.default.connection, keys);
+            const txid = yield wallet.sendAndConfirmTransaction(tx, env_1.default.connection._, keys);
             log_1.Log.Tx(txid.toString());
             return true;
         }

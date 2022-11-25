@@ -34,7 +34,7 @@ var Tx;
     function createHashList(size) {
         return __awaiter(this, void 0, void 0, function* () {
             const space = size * 32 + 32;
-            const lamports = yield env_1.default.connection.getMinimumBalanceForRentExemption(space);
+            const lamports = yield env_1.default.connection._.getMinimumBalanceForRentExemption(space);
             const idx = [0, 0, 0, 0].concat(Array.from((0, big_byte_1.toLittleEndian)((0, big_integer_1.default)(lamports.toString()), 8)))
                 .concat(Array.from((0, big_byte_1.toLittleEndian)((0, big_integer_1.default)(space.toString()), 8)))
                 .concat(Array.from(env_1.default.StakeProgram.toBytes()));
@@ -60,7 +60,7 @@ var Tx;
     function createRewardDescriptor(size) {
         return __awaiter(this, void 0, void 0, function* () {
             const space = Math.ceil(size / 32) * 32 + 32;
-            const lamports = yield env_1.default.connection.getMinimumBalanceForRentExemption(space);
+            const lamports = yield env_1.default.connection._.getMinimumBalanceForRentExemption(space);
             const idx = [0, 0, 0, 0].concat(Array.from((0, big_byte_1.toLittleEndian)((0, big_integer_1.default)(lamports.toString()), 8)))
                 .concat(Array.from((0, big_byte_1.toLittleEndian)((0, big_integer_1.default)(space.toString()), 8)))
                 .concat(Array.from(env_1.default.StakeProgram.toBytes()));
@@ -86,7 +86,7 @@ var Tx;
     function createRewardList(depositCount) {
         return __awaiter(this, void 0, void 0, function* () {
             const space = Math.ceil(256 * depositCount / 4) * 32 + 32;
-            const lamports = yield env_1.default.connection.getMinimumBalanceForRentExemption(space);
+            const lamports = yield env_1.default.connection._.getMinimumBalanceForRentExemption(space);
             const idx = [0, 0, 0, 0].concat(Array.from((0, big_byte_1.toLittleEndian)((0, big_integer_1.default)(lamports.toString()), 8)))
                 .concat(Array.from((0, big_byte_1.toLittleEndian)((0, big_integer_1.default)(space.toString()), 8)))
                 .concat(Array.from(env_1.default.StakeProgram.toBytes()));

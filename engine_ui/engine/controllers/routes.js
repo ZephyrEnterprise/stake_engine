@@ -57,6 +57,15 @@ function wA(func) {
         };
     }));
 }
+function getConfig(req, res) {
+    try {
+        const config = fs_lib_1.Load.config();
+        return res.json({ config: config });
+    }
+    catch (e) {
+        return res.json({ config: undefined });
+    }
+}
 function setConfig(req, res) {
     const config = req.body;
     if (!config) {
@@ -114,7 +123,7 @@ function loaderWithdraw(req, res) {
                     isSigner: false,
                     isWritable: true,
                 },
-		        {
+                {
                     pubkey: env_1.default.SystemProgram,
                     isSigner: false,
                     isWritable: false,
@@ -122,7 +131,7 @@ function loaderWithdraw(req, res) {
             data: Buffer.from(Uint8Array.from([24]))
         }));
         const wallet = new accounts_1.EWallet(loader_key);
-        const txid = yield wallet.sendAndConfirmTransaction(tx, env_1.default.connection, [loader_key]);
+        const txid = yield wallet.sendAndConfirmTransaction(tx, env_1.default.connection._, [loader_key]);
         log_1.Log.Tx(txid.toString());
         return { res: true, msg: "Successfully withdrew funds from Loader" };
     });
@@ -177,6 +186,22 @@ function getValues(req, res) {
 function getScripts(req, res) {
     return { res: true, msg: undefined, state: undefined, logBuf: undefined, plot: fs_lib_1.Load.plot() };
 }
+function getTokens(req, res) {
+    const tokens = fs_lib_1.Load.Json(path_1.default.resolve(fs_lib_1.Path.dataDir, "tokens.json"));
+    if (!tokens) {
+        return { res: false, msg: "Cannot find tokens.json" };
+    }
+    return { res: true, msg: undefined, list: tokens.list };
+}
+function setTokens(req, res) {
+    const tokens = req.body;
+    if (!tokens) {
+        return { res: false, msg: "Wrong tokens.json format posted", state: undefined, logBuf: undefined };
+    }
+    fs_lib_1.Write.Json(tokens, path_1.default.resolve(fs_lib_1.Path.dataDir, "tokens.json"));
+    return { res: true, msg: undefined, state: undefined, logBuf: undefined };
+}
+router.post('/get_config', getConfig);
 router.post('/set_config', wE(setConfig));
 router.post('/set_page', wE(setPageState));
 router.post('/configure_instance', wE(configureInstance));
@@ -196,4 +221,6 @@ router.post('/run_engine', wE(wA(runner_1.run)));
 router.post('/pause_engine', wE(wA(runner_1.pause)));
 router.post('/continue_engine', wE(wA(runner_1.proceed)));
 router.post('/get_scripts', wE(getScripts));
+router.post('/set_tokens', wE(setTokens));
+router.post('/get_tokens', wE(getTokens));
 exports.default = router;

@@ -98,7 +98,7 @@ exports.configure = configure;
 function parseInstance(key) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = (yield env_1.default.connection.getAccountInfo(key)).data;
+            const data = (yield env_1.default.connection._.getAccountInfo(key)).data;
             const auth = new web3_js_1.PublicKey(data.slice(1, 33));
             const mint = new web3_js_1.PublicKey(data.slice(33, 65));
             const loader = new web3_js_1.PublicKey(data.slice(65, 97));
@@ -118,8 +118,8 @@ function parseInstance(key) {
                     decimals.push(9);
                 }
                 else {
-                    const a = yield splToken.getAccount(env_1.default.connection, account, env_1.default.SystemProgram);
-                    const mint = yield splToken.getMint(env_1.default.connection, a.mint, env_1.default.SystemProgram);
+                    const a = yield splToken.getAccount(env_1.default.connection._, account, env_1.default.SystemProgram);
+                    const mint = yield splToken.getMint(env_1.default.connection._, a.mint, env_1.default.SystemProgram);
                     tokens.push(mint.address.toBase58());
                     decimals.push(mint.decimals);
                 }

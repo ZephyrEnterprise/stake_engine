@@ -1,26 +1,10 @@
 const {PublicKey, Connection} = require("@solana/web3.js");
-const config = require("./data/config.json");
 
 
 const explorerAddressPrefix = "https://explorer.solana.com/address/";
 let explorerAddressPostfix = "?cluster=devnet";
 let connection = new Connection("https://api.devnet.solana.com");
 
-if(!config) throw "Error while loading config";
-switch(config.web) {
-    case "mainnet":
-        connection = new Connection("https://api.mainnet-beta.solana.com");
-        explorerAddressPostfix = "?cluster=mainnet";
-        break;
-    case "devnet":
-        connection = new Connection("https://api.devnet.solana.com");
-        explorerAddressPostfix = "?cluster=devnet";
-        break;
-    case "testnet":
-        connection = new Connection("https://api.testnet.solana.com");
-        explorerAddressPostfix = "?cluster=testnet";
-        break;
-}
 
 const StakeProgram= new PublicKey("StaXxEPJNmvNzXox4WpsGkeVCieKV1bNrYnCQybaSnQ");
 const SystemProgram = new PublicKey("11111111111111111111111111111111");
@@ -37,7 +21,34 @@ const USDT = new PublicKey("Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB");
 const USDC = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 const BUSD = new PublicKey("5RpUwQ8wtdPCZHhu6MERp2RGrpobsbZ6MH5dDHkUjs2");
 
-const PORT =  7000;
+const PORT = 3001;
 
-module.exports = {connection, explorerAddressPrefix, explorerAddressPostfix, StakeProgram, SystemProgram, TokenProgram, MetadataProgram, AssociatedProgram, Sysvar,
-                    USDT, USDC, BUSD, PORT, Zarve, Deployer, StableList};
+
+let Web = {StakeProgram, SystemProgram, TokenProgram, MetadataProgram, AssociatedProgram, Sysvar,
+                    USDT, USDC, BUSD, PORT, Zarve, Deployer, StableList, connection, explorerAddressPrefix, explorerAddressPostfix};
+
+
+function getWeb(){
+    return Web;
+}
+
+function switchWeb(config){
+    switch(config.web) {
+        case "mainnet":
+            Web.connection = new Connection("https://api.mainnet-beta.solana.com");
+            Web.explorerAddressPostfix = "?cluster=mainnet";
+            break;
+        case "devnet":
+            Web.connection = new Connection("https://api.devnet.solana.com");
+            Web.explorerAddressPostfix = "?cluster=devnet";
+            break;
+        case "testnet":
+            Web.connection = new Connection("https://api.testnet.solana.com");
+            Web.explorerAddressPostfix = "?cluster=testnet";
+            break;
+    }
+    console.log(config.web)
+}
+
+
+module.exports = {getWeb, switchWeb}

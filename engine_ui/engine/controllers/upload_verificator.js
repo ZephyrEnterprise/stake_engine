@@ -23,7 +23,7 @@ const env_1 = __importDefault(require("../env"));
 function parseHashList(record) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = (yield env_1.default.connection.getAccountInfo(record)).data;
+            const data = (yield env_1.default.connection._.getAccountInfo(record)).data;
             const size = (new bn_js_1.default(data.slice(28, 32), "le").toNumber());
             let hashes = [];
             for (let i = 0; i < size; i++) {
@@ -43,7 +43,7 @@ exports.parseHashList = parseHashList;
 function parseRewardDescriptor(record, size) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = (yield env_1.default.connection.getAccountInfo(record)).data;
+            const data = (yield env_1.default.connection._.getAccountInfo(record)).data;
             let pos = [];
             for (let i = 0; i < size; i++) {
                 pos.push(new bn_js_1.default(data.slice(32 + i, 33 + i), "le").toNumber());
@@ -62,7 +62,7 @@ exports.parseRewardDescriptor = parseRewardDescriptor;
 function parseRewardList(record, depositCount) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = (yield env_1.default.connection.getAccountInfo(record)).data;
+            const data = (yield env_1.default.connection._.getAccountInfo(record)).data;
             let rewards = [];
             for (let i = 0; i < 256; i++) {
                 let row = [];

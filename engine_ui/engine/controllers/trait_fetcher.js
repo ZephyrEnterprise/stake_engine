@@ -50,7 +50,7 @@ function fetchMetadataFromHashes(hashes, collection, state) {
         for (let i = 0; i < hashes.length; i++) {
             const hash = hashes[i];
             const meta = yield (0, util_1.getMetadataAddress)(new web3_js_1.PublicKey(hash));
-            const metadata = yield mpl_token_metadata_1.Metadata.fromAccountAddress(env_1.default.connection, meta);
+            const metadata = yield mpl_token_metadata_1.Metadata.fromAccountAddress(env_1.default.connection._, meta);
             if (!metadata) {
                 state.setMissed(state.missed + 1);
                 continue;
