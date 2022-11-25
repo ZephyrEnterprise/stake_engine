@@ -1,4 +1,4 @@
-## **V.1.2.03** 
+## **V.1.2.04** 
 ### 11.25.22
 - Import and Create Custom Tokens
 - Hasehs Count displayed before Instance configuration
