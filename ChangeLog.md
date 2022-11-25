@@ -1,3 +1,8 @@
+## **V.1.2.03** 
+### 11.25.22
+- Import and Create Custom Tokens
+- Hasehs Count displayed before Instance configuration
+- Critical bug with packet dynamic file solved
 
 ## **V.1.2.03** 
 ### 10.30.2022
