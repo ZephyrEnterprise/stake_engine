@@ -7,7 +7,9 @@
     "serve": "node ./engine/index.js | npx serve -s dashboard",
     "dev_download": "npm install --force && npm install yarn --force",
     "dev_serve": "node ./engine/index.js | vue-cli-service serve",
-    "dev_build": "vue-cli-service build"
+    "dev_build": "vue-cli-service build",
+    "dev_dashboard": "vue-cli-service serve",
+    "dev_server": "node ./engine/index.js"
   },
   "dependencies": {
     "@metaplex-foundation/mpl-token-metadata": "^2.2.3",

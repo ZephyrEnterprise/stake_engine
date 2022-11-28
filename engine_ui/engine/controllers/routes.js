@@ -154,6 +154,12 @@ function logBack(req, res) {
     }
     return { res: true, msg: undefined, state: undefined, logBuf: undefined };
 }
+function getHashesCount(req, res) {
+    const hashes = fs_lib_1.Load.Json(path_1.default.resolve(fs_lib_1.Path.repDir, "hashes.json"));
+    if (!hashes)
+        return { res: false, msg: "Cannot find hashes.json", state: undefined, logBuf: undefined };
+    return { res: true, msg: undefined, state: undefined, logBuf: undefined, count: hashes.length };
+}
 function getTraits(req, res) {
     return { res: true, msg: undefined, state: undefined, logBuf: undefined, traits: fs_lib_1.Load.traits() };
 }
@@ -211,6 +217,7 @@ router.post('/get_loader', wE(getLoader));
 router.post('/load_states', wE(loadStates));
 router.post('/refresh_states', wE(refreshStates));
 router.post('/log_back', wE(logBack));
+router.post("/get_hashes_count", wE(getHashesCount));
 router.post('/fetch_traits', wE(wA(trait_fetcher_1.fetchTraits)));
 router.post('/get_traits', wE(getTraits));
 router.post('/set_base', wE(setBase));

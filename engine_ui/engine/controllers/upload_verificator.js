@@ -110,13 +110,13 @@ function verify() {
         const rewardDescriptorTarget = yield fs_lib_1.Load.Json(path_1.default.resolve(fs_lib_1.Path.dataDir, "reward_descriptor.json"));
         const rewardListTarget = yield fs_lib_1.Load.Json(path_1.default.resolve(fs_lib_1.Path.dataDir, "reward_list.json"));
         if (JSON.stringify(hashList) !== JSON.stringify(hashListTarget)) {
-            throw "HashList not match target value";
+            return { res: false, msg: "HashList not match target value" };
         }
         if (JSON.stringify(rewardDescriptor) !== JSON.stringify(rewardDescriptorTarget)) {
-            throw "RewardDescriptor not match target value";
+            return { res: false, msg: "RewardDescriptor not match target value" };
         }
         if (JSON.stringify(rewardList) !== JSON.stringify(rewardListTarget)) {
-            throw "RewardList not match target value";
+            return { res: false, msg: "RewardList not match target value" };
         }
         state.map.get("EVM").state = "none";
         state.map.get("EVM").script = "";

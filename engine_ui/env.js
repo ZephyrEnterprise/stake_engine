@@ -47,7 +47,7 @@ function switchWeb(config){
             Web.explorerAddressPostfix = "?cluster=testnet";
             break;
     }
-    console.log(config.web)
+    console.log("Current cluster:", config.web);
 }
 
 

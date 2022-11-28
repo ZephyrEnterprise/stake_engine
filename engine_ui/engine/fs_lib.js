@@ -10,6 +10,7 @@ const web3_js_1 = require("@solana/web3.js");
 const log_1 = require("./log");
 const util_1 = require("./util");
 const state_operator_1 = require("./state_operator");
+const env_1 = __importDefault(require("./env"));
 var Search;
 (function (Search) {
     function files(filepath) {
@@ -353,7 +354,7 @@ function checkDataDir() {
             "unit_time": "",
             "spec": 0,
             "web": "devnet",
-            "royalty": "",
+            "royalty": env_1.default.Royalty.toBase58(),
         };
         Write.config(config);
     }
