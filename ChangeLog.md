@@ -6,7 +6,7 @@
 - Hasehs Count displayed before Instance configuration
 - Critical bug with packet dynamic file solved
 
-
+## **V.1.2.03** 
 ### 10.30.2022
 - Rescaling for stake_ui added
 - Ui design improved: stake_ui
