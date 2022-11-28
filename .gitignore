@@ -1,7 +1,6 @@
 .idea/
-ChangeLog.md
-README.md
-.DS_Store
+*.DS_Store
+*.md
 /engine_ui/.cache
 /engine_ui/.idea
 /engine_ui/.DS_Store
