@@ -1,4 +1,6 @@
 ## **V.1.2.04** 
+### 11.28.22
+- Screen rescaling in engine_ui improved
 ### 11.25.22
 - Import and Create Custom Tokens
 - Hasehs Count displayed before Instance configuration
