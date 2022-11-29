@@ -6,7 +6,7 @@
           <img src="@/assets/OfficialLogo.png"
                class="rounded-circle logo"/>
           <div class="nav-item centered">
-            <a class="collection text-decoration-none h4" v-bind:href='refToCollection'>
+            <a class="collection text-decoration-none h4" v-bind:href='refToCollection' target="_blank">
               {{ collectionName }}
             </a>
             <br/>
@@ -18,10 +18,10 @@
 
         <div class="navbar">
           <div class="nav-item nav-social">
-            <a :href="refToDiscord" style="text-decoration: none;" v-if="refToDiscord">
+            <a :href="refToDiscord" style="text-decoration: none;" target="_blank" v-if="refToDiscord">
               <img src="@/assets/discord_logo.png" class="social"/>
             </a>
-            <a :href="refToTwitter" style="text-decoration: none;" v-if="refToTwitter">
+            <a :href="refToTwitter" style="text-decoration: none;" target="_blank" v-if="refToTwitter">
               <img src="@/assets/twitter_logo.png" class="social"/>
             </a>
           </div>
@@ -52,6 +52,11 @@ export default {
 }
 </script>
 
+<style>
+#app .swv-button-trigger p {
+  margin-top: 15px;
+}
+</style>
 
 <style scoped>
 .navbar-expand{

@@ -9,7 +9,7 @@
            class="rounded-3 card-img-top">
       <div class="card-body" style="padding: 0; margin: 0;">
         <div style="text-align: start; margin-left: 15px;">
-          <a v-bind:href="prefix+this.nft.mint+postfix" class="text-decoration-none name_hover h6" style="background-color: transparent; border-color: transparent;">
+          <a v-bind:href="prefix+this.nft.mint+postfix" target="_blank" class="text-decoration-none name_hover h6" style="background-color: transparent; border-color: transparent;">
             {{ nft.name }}
           </a>
           <div class="symbol">{{ nft.symbol}}</div>
@@ -33,9 +33,15 @@ export default {
     }
   },
 }
+//<img v-bind:src="this.nft.uri"
+//'https://picsum.photos/200/300'
 </script>
 
 <style scoped>
+.card-img-top{
+  height: 175px;
+  width: auto;
+}
 .button{
   background-color: transparent;
   margin: 5px;

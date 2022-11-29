@@ -4,7 +4,7 @@
       <h5 v-else class="row_msg rounded-2 white_letter">
         {{title}}
       </h5>
-      <a class="row_msg rounded-2 grey_letter" :href="refToCollection" style="text-decoration: none">
+      <a class="row_msg rounded-2 grey_letter" :href="refToCollection" target="_blank" style="text-decoration: none">
         {{text}}
       </a>
     </div>

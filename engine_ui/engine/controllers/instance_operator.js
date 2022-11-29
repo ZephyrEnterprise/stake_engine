@@ -151,6 +151,12 @@ function load(address) {
         const instance = yield parseInstance(new web3_js_1.PublicKey(address));
         if (!instance)
             return { res: false, msg: "Invalid Instance", state: state_operator_1.State.packActive(), logBuf: undefined };
+        if (instance.hash_list === "11111111111111111111111111111111") {
+            return { res: false, msg: "HashList are not initialized, can not load", state: state_operator_1.State.packActive(), logBuf: log_1.Log.pack() };
+        }
+        if (instance.reward_descriptor === "11111111111111111111111111111111" || instance.reward_list === "11111111111111111111111111111111") {
+            return { res: false, msg: "Some accounts are not initialized, can not load", state: state_operator_1.State.packActive(), logBuf: log_1.Log.pack() };
+        }
         instance.instance = address;
         instance.web = config.web;
         instance.royalty = env_1.default.Royalty.toBase58();
@@ -161,6 +167,7 @@ function load(address) {
         fs_lib_1.Write.Json(yield (0, upload_verificator_1.parseRewardList)(new web3_js_1.PublicKey(instance.reward_list), instance.tokens.length), path_1.default.resolve(fs_lib_1.Path.dataDir, "reward_list.json"));
         const state = state_operator_1.State.get();
         state.page.instance = "deployed";
+        state.setVerified(true);
         state.save();
         return { res: true, msg: "Successfully Loaded", state: state_operator_1.State.packActive(), logBuf: undefined };
     });

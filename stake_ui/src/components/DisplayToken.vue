@@ -1,5 +1,5 @@
 <template>
-  <a v-bind:href="prefix+token+postfix" class="btn symbol_hover" style="background-color: transparent; border-color: transparent;">
+  <a v-bind:href="prefix+token+postfix" class="btn symbol_hover" target="_blank" style="background-color: transparent; border-color: transparent;">
     {{value}}
   </a>
 </template>
