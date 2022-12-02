@@ -38,10 +38,6 @@ export default {
 </script>
 
 <style scoped>
-.card-img-top{
-  height: 175px;
-  width: auto;
-}
 .button{
   background-color: transparent;
   margin: 5px;
