@@ -94,6 +94,7 @@ export default defineComponent({
     const commitment = 'confirmed'
     const wallet = reactive(useAnchorWallet());
     const provider = computed(() => new Provider(env.connection, wallet.value, {preflightCommitment, commitment}));
+    env.setProvider(provider);
     const showError = (text) => {
       Swal.fire({
         position: 'top',

@@ -27,6 +27,7 @@ export interface NFT{
 
 export interface Config{
     web: "mainnet"|"devnet"|"testnet",
+    custom_endpoint: undefined|string,
     owner: string,
     instance: string,
     mint: string,
