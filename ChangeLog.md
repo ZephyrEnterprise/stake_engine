@@ -1,4 +1,10 @@
 ## **V.1.2.04** 
+### 12.15.22
+- Multi-endpoint provider
+## 12.16.22
+- UI bugs solved 
+
+## **V.1.2.04** 
 ### 11.28.22
 - Screen rescaling in engine_ui improved
 ### 11.25.22
