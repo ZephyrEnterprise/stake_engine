@@ -3,11 +3,11 @@
   <MessagePool v-if="!this.wallet" title="Connect wallet" class="nav_background"/>
   <MessagePool v-else-if="this.nftArray.length === 0 && isReady" title="No NFTs found to Stake" text="Get from MagicEden" class="nav_background"/>
   <div class="container_grid" v-if="this.wallet&&!(isReady&&nftArray.length===0)" style="display: flex; overflow: hidden">
-    <BottomPool :cards="this.nftArray" :active-index="activeNFTIndex" :is-ready="isReady"
-                :choose="chooseNFT" :class="(activeNFTIndex>=0)? 'container_grid_cut': ''" :start-time="start_time"/>
-    <LockBoard v-if="(activeNFTIndex>=0)&&(this.instance.spec===1)" :active-index="activeNFTIndex" :nft-array="nftArray" :set="setNFT"
+    <BottomPool :cards="this.nftArray" :active-n-f-t="activeNFT" :is-ready="isReady"
+                :choose="chooseNFT" :class="(activeNFT)? 'container_grid_cut': ''" :start-time="start_time"/>
+    <LockBoard v-if="(activeNFT)&&(this.instance.spec===1)" :active-n-f-t="activeNFT" :nft-array="nftArray" :set="setNFT"
                  :instance="this.instance" :wallet="this.wallet.publicKey.toBase58()" :sign-tx="signTx"/>
-    <StakeBoard v-if="(activeNFTIndex>=0)&&(this.instance.spec===0)" :active-index="activeNFTIndex" :nft-array="nftArray" :set="setNFT"
+    <StakeBoard v-if="(activeNFT)&&(this.instance.spec===0)" :active-n-f-t="activeNFT" :nft-array="nftArray" :set="setNFT"
                  :instance="this.instance" :wallet="this.wallet.publicKey.toBase58()" :sign-tx="signTx"/>
   </div>
 </template>
@@ -38,23 +38,29 @@ export default defineComponent({
   },
   methods:{
     async refresh(){
-      //console.log("Refresh", this.localWallet);
       if(this.localWallet!==""){
         this.isReady = false;
         await searchForNFTS(new PublicKey(this.localWallet), this.nftArray, this.instance.spec);
         this.isReady = true;
       }
     },
-    chooseNFT(index: number){
-      this.activeNFTIndex = index;
+    chooseNFT(nft: NFT){
+      this.activeNFT = nft;
     },
-    setNFT(index: number, nft: NFT){
-      this.nftArray[index] = nft;
+    setNFT(mint: string, nft: NFT){
+      if(this.activeNFT){
+        if(this.activeNFT.mint === mint) this.activeNFT = nft;
+      }
+      for(let i = 0; i < this.nftArray; i++){
+        if(this.nftArray[i].mint === mint){
+          this.nftArray[i] = nft;
+        }
+      }
     }
   },
   async mounted() {
     this.instance = await parseInstance(new PublicKey(env.config.instance));
-    //console.log(this.instance)
+    console.log(this.instance)
     this.refresh();
   },
   watch: {
@@ -63,7 +69,6 @@ export default defineComponent({
       async handler(newVal) {
         if(this.localWallet!=""){
           if(newVal.publicKey.toBase58()!=this.localWallet){
-            //console.log("New", newVal.publicKey.toBase58());
             this.localWallet = newVal.publicKey.toBase58();
             this.nftArray = [];
             window.location.reload();
@@ -71,7 +76,6 @@ export default defineComponent({
         }
         else{
           if(newVal){
-            //console.log("Set", newVal.publicKey.toBase58());
             this.localWallet = newVal.publicKey.toBase58();
             this.refresh();
           }
@@ -83,7 +87,7 @@ export default defineComponent({
     return{
       instance: undefined as Instance,
       nftArray: useLocalStorage("nftArray", [] as NFT[]),
-      activeNFTIndex: -1 as number,
+      activeNFT: undefined,
       localWallet: useLocalStorage("localWallet", ""),
       isReady: false,
       start_time: getLocalTime(),

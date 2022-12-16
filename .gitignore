@@ -8,6 +8,7 @@
 /engine_ui/node_modules
 /engine_ui/public
 /engine_ui/src
+/engine_ui/yarn.lock
 /engine_ui/hashes.json
 /stake_ui/.idea
 /stake_ui/.DS_Store

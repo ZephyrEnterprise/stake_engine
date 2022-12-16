@@ -23,6 +23,7 @@ export async function searchForNFTS(wallet: PublicKey, array: NFT[], spec: numbe
     const usedHashes: Set<string> = new Set();
     const RewardDescriptor = await parseRewardDescriptor(env.RewardDescriptor);
     const RewardList = await parseRewardList(env.RewardList);
+    //array.length = 0;
     let index = 0;
     while(index < array.length){
         try{
@@ -42,10 +43,9 @@ export async function searchForNFTS(wallet: PublicKey, array: NFT[], spec: numbe
             else{
                 const a = await parseVault(nft.associated_token);
                 if(a.amount.toString()!=="1") throw "Not own any more";
-
             }
             nft.update_time = getLocalTime().toString();
-            nft.rewardIndex = RewardDescriptor.positions[index];
+            nft.rewardIndex = RewardDescriptor.positions[nft.index];
             nft.rewards = RewardList.rewards[nft.rewardIndex];
             array[index] = nft;
             usedHashes.add(nft.mint);
@@ -220,10 +220,10 @@ export function checkRewardPool(rewards: string[], nft: NFT, instance: Instance)
 }
 
 export function isZeroArray(array: string[]): boolean{
-    let res = false;
+    let res = true;
     array.forEach((a) => {
-        if(a==="0"){
-            res = true;
+        if(a!=="0"){
+            res = false;
         }
     })
     return res;

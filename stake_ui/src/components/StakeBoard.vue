@@ -28,14 +28,17 @@
           </div>
         </div>
         <div class="hr hl_inner"></div>
+        <h6 v-if="(instance.state!==1)" class="row warning_letter">
+          Staking is paused for an update!
+        </h6>
       </div>
       <h6 v-else class="row warning_letter">
         Pool can not provide rewards anymore
       </h6>
-      <GreenButton v-if="!isStaked" text="Stake" style="margin: 10px 0 15px 0" :on-click="this.stake" :disabled="poolDrown"/>
+      <GreenButton v-if="!isStaked" text="Stake" style="margin: 10px 0 15px 0" :on-click="this.stake" :disabled="poolDrown||(instance.state!==1)"/>
       <div class="row" v-else>
         <GreenButton text="UnStake" style="margin: 10px 20px 15px 0;" :on-click="this.unStake" :is-short="true"/>
-        <GreenButton text="Claim" style="margin: 10px 0 15px 0;" :on-click="this.claim" :disabled="poolDrown||!canClaim" :is-short="true"/>
+        <GreenButton text="Claim" style="margin: 10px 0 15px 0;" :on-click="this.claim" :disabled="poolDrown||!canClaim||(instance.state!==1)" :is-short="true"/>
       </div>
     </div>
   </div>
@@ -68,11 +71,11 @@ import GreenButton from "@/components/GreenButton.vue";
 export default {
   name: "StakeBoard",
   components: {GreenButton, ReloadSymbol, DisplayToken},
-  props: ['nftArray', 'activeIndex', 'instance', "wallet", 'set', 'signTx'],
+  props: ['nftArray', 'activeNFT', 'instance', "wallet", 'set', 'signTx'],
   methods:{
     async refresh(){
       this.isReady = false;
-      this.nft = this.nftArray[this.activeIndex];
+      this.nft = this.activeNFT;
       this.time = displayTime(this.instance.unit_time);
       if(this.nft.stake){
         const realTime: BigInteger = await getTime();
@@ -101,14 +104,14 @@ export default {
       const tx = await stakeTX(new PublicKey(this.wallet), this.nft);
       if(! await this.signTx(tx)) return;
       this.nft.stake = stake;
-      this.set(this.activeIndex, this.nft);
+      this.set(this.nft.mint, this.nft);
       await this.refresh();
     },
     async unStake(){
       const tx = await unStakeTX(new PublicKey(this.wallet), this.nft, this.instance);
       if(! await this.signTx(tx)) return;
       this.nft.stake = undefined;
-      this.set(this.activeIndex, this.nft);
+      this.set(this.nft.mint, this.nft);
       await this.refresh();
     },
     async claim(){
@@ -117,7 +120,7 @@ export default {
       if(! await this.signTx(tx)) return;
       this.nft.stake.start_time = calcRemainderTime(this.nft, this.instance, realTime);
       this.nft.stake.unit_time = this.instance.unit_time.toString();
-      this.set(this.activeIndex, this.nft);
+      this.set(this.nft.mint, this.nft);
       await this.refresh();
     }
   },
@@ -129,7 +132,8 @@ export default {
     await this.refresh();
   },
   watch:{
-    activeIndex:{
+    activeNFT:{
+      deep: true,
       async handler(){
         await this.refresh();
       }

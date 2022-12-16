@@ -1,8 +1,8 @@
 <template>
   <button class="button rounded-3 border-2"
           :class="nft.stake? 'nft_stk' : 'nft_btn'" :style="this.startTime.greater(BigInteger(this.nft.update_time))? 'pointer-events: none' : ''"
-          v-on:click="choose(selfIndex)" id="card"
-          :disabled="selfIndex===activeIndex">
+          v-on:click="choose(nft)" id="card"
+          :disabled="activeNFT? nft.mint===activeNFT.mint : false">
     <div  v-if="this.startTime.greater(BigInteger(this.nft.update_time))" class="spinner-border roll" role="status"/>
     <div class="card nft_background">
       <img v-bind:src="this.nft.uri"
@@ -24,7 +24,7 @@ import {env} from "@/helpers";
 import BigInteger from "big-integer";
 export default {
   name: "NFTCard",
-  props: ['nft', 'choose', 'selfIndex', 'activeIndex', 'startTime'],
+  props: ['nft', 'choose', 'activeNFT', 'startTime'],
   data(){
     return{
       prefix: env.explorerAddressPrefix,

@@ -1,10 +1,10 @@
 <template>
   <div class="con_inside rounded-4 pool_background">
-    <div v-for="index in this.cards.length" :key="index">
-      <NFTCard v-if="cards[index-1].stake" :nft="cards[index-1]" :self-index="index-1" :active-index="activeIndex" :choose="choose" :start-time="startTime"/>
+    <div v-for="card in this.cards" :key="card">
+      <NFTCard v-if="card.stake" :nft="card" :active-n-f-t="activeNFT" :choose="choose" :start-time="startTime"/>
     </div>
-    <div v-for="index in this.cards.length" :key="index">
-      <NFTCard v-if="!cards[index-1].stake" :nft="cards[index-1]" :self-index="index-1" :active-index="activeIndex" :choose="choose" :start-time="startTime"/>
+    <div v-for="card in this.cards" :key="card">
+      <NFTCard v-if="!card.stake" :nft="card" :active-n-f-t="activeNFT" :choose="choose" :start-time="startTime"/>
     </div>
     <HollowCard v-if="!isReady"/>
   </div>
@@ -16,7 +16,7 @@ import HollowCard from "@/components/HollowCard";
 export default {
   name: "BottomPool",
   components: {HollowCard, NFTCard},
-  props: ['cards', 'activeIndex', 'choose', 'startTime', 'isReady']
+  props: ['cards', 'activeNFT', 'choose', 'startTime', 'isReady']
 }
 </script>
 

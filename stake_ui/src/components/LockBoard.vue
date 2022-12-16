@@ -25,12 +25,15 @@
           </div>
         </div>
         <div class="hr hl_inner"></div>
+        <h6 v-if="(instance.state!==1)" class="row warning_letter">
+          Staking is paused for an update!
+        </h6>
       </div>
       <h6 v-else class="row warning_letter">
         Pool can not provide rewards anymore
       </h6>
       <GreenButton v-if="isLocked" :text="timeLeft? timeLeft: 'UnLock'" style="margin: 10px 0 15px 0" :on-click="this.unLock" :disabled="timeLeft"/>
-      <GreenButton v-else text="Lock" style="margin: 10px 0 15px 0" :on-click="this.lock" :disabled="poolDrown"/>
+      <GreenButton v-else text="Lock" style="margin: 10px 0 15px 0" :on-click="this.lock" :disabled="poolDrown||(instance.state!==1)||zeroReward"/>
     </div>
   </div>
   <div v-else class="board"/>
@@ -49,7 +52,7 @@ import {
   getLock,
   getTime,
   lockTX,
-  unLockTX
+  unLockTX, isZeroArray
 } from "@/helpers";
 import DisplayToken from "@/components/DisplayToken.vue";
 import GreenButton from "@/components/GreenButton.vue";
@@ -59,11 +62,11 @@ import Swal from "sweetalert2";
 export default {
   name: "LockBoard",
   components: {ReloadSymbol, GreenButton, DisplayToken},
-  props: ['nftArray', 'activeIndex', 'instance', "wallet", 'set', 'signTx'],
+  props: ['nftArray', 'activeNFT', 'instance', "wallet", 'set', 'signTx'],
   methods:{
     async refresh(){
       this.isReady = false;
-      this.nft = this.nftArray[this.activeIndex];
+      this.nft = this.activeNFT;
       this.time = displayTime(this.instance.unit_time);
       if(this.nft.stake){
         this.rewards = this.nft.stake.rewards;
@@ -85,6 +88,7 @@ export default {
       else{
         this.rewards = this.nft.rewards;
         this.poolDrown = !checkPoolToLock(this.rewards, this.instance);
+        this.zeroReward = isZeroArray(this.rewards);
         this.isLocked = false;
       }
       this.isReady = true;
@@ -125,7 +129,7 @@ export default {
           const tx = await lockTX(new PublicKey(this.wallet), this.nft);
           if(! await this.signTx(tx)) return;
           this.nft.stake = lock;
-          this.set(this.activeIndex, this.nft);
+          this.set(this.nft.mint, this.nft);
           await this.refresh();
         }
       });
@@ -134,7 +138,7 @@ export default {
       const tx = await unLockTX(new PublicKey(this.wallet), this.nft, this.instance);
       if(! await this.signTx(tx)) return;
       this.nft.stake = undefined;
-      this.set(this.activeIndex, this.nft);
+      this.set(this.nft.mint, this.nft);
       this.isLocked = true;
       await this.refresh();
     }
@@ -147,7 +151,8 @@ export default {
     await this.refresh();
   },
   watch:{
-    activeIndex:{
+    activeNFT:{
+      deep: true,
       async handler(){
         await this.refresh();
       }
@@ -166,6 +171,7 @@ export default {
       rewards: [] as BigInteger[],
       decimals: [] as number[],
       displayFloat: displayFloat,
+      zeroReward: false
     }
   }
 }
